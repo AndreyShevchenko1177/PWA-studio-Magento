@@ -4,23 +4,25 @@ import { arrayOf, bool, number, shape, string } from 'prop-types';
 import { Form } from 'informed';
 import { Info } from 'react-feather';
 
+// node_modules/@magento/venia-ui/lib/components/ProductFullDetail/productFullDetail.js
+
 import Price from '@magento/venia-ui/lib/components/Price';
 import { useProductFullDetail } from '@magento/peregrine/lib/talons/ProductFullDetail/useProductFullDetail';
 import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
 
-import { useStyle } from '../../classify';
-import Breadcrumbs from '../Breadcrumbs';
-import Button from '../Button';
-import Carousel from '../ProductImageCarousel';
-import FormError from '../FormError';
-import QuantityStepper from '../QuantityStepper';
-import RichContent from '../RichContent/richContent';
-import { ProductOptionsShimmer } from '../ProductOptions';
-import CustomAttributes from './CustomAttributes';
-import defaultClasses from './productFullDetail.module.css';
+import { useStyle } from '@magento/venia-ui/lib/classify';
+import Breadcrumbs from '@magento/venia-ui/lib/components/Breadcrumbs';
+import Button from '@magento/venia-ui/lib/components/Button';
+import Carousel from '@magento/venia-ui/lib/components/ProductImageCarousel'; //++++++++++++++++++++++++++++++++++++++++++++++++
+import FormError from '@magento/venia-ui/lib/components/FormError';
+import QuantityStepper from '@magento/venia-ui/lib/components/QuantityStepper';
+import RichContent from '@magento/venia-ui/lib/components/RichContent/richContent';
+import { ProductOptionsShimmer } from '@magento/venia-ui/lib/components/ProductOptions';
+import CustomAttributes from '@magento/venia-ui/lib/components/ProductFullDetail/CustomAttributes';
+import defaultClasses from '@magento/venia-ui/lib/components/ProductFullDetail/productFullDetail.module.css';
 
-const WishlistButton = React.lazy(() => import('../Wishlist/AddToListButton'));
-const Options = React.lazy(() => import('../ProductOptions'));
+const WishlistButton = React.lazy(() => import('@magento/venia-ui/lib/components/Wishlist/AddToListButton'));
+const Options = React.lazy(() => import('@magento/venia-ui/lib/components/ProductOptions'));
 
 // Correlate a GQL error message to a field. GQL could return a longer error
 // string but it may contain contextual info such as product id. We can use
@@ -54,6 +56,12 @@ const ProductFullDetail = props => {
         customAttributes,
         wishlistButtonProps
     } = talonProps;
+
+    // let {mediaGalleryEntries} = talonProps;
+
+    // mediaGalleryEntries = [...mediaGalleryEntries, ...mediaGalleryEntries];
+
+    console.log({mediaGalleryEntries});
 
     const { formatMessage } = useIntl();
 
