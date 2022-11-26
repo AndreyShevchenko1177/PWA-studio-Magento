@@ -25,7 +25,7 @@ import { useEventingContext } from '@magento/peregrine/lib/context/eventing';
  */
 export const useProduct = props => {
 
-    console.log('+++useProduct+++');
+    // console.log('+++useProduct+++');
 
     const { mapProduct } = props;
 
@@ -92,7 +92,7 @@ export const useProduct = props => {
             type: 'video',
         };
 
-        media = [...media, videoItem];
+        media = [...media, videoItem]; ///+++++++++++++++++++++++++++++++++++
 
         product = {...product, 'media_gallery_entries': media}
 

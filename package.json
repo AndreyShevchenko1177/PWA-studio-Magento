@@ -28,7 +28,8 @@
     "@magento/venia-drivers": "src/drivers"
   },
   "dependencies": {
-    "@magento/pwa-buildpack": "~11.4.0"
+    "@magento/pwa-buildpack": "~11.4.0",
+    "react-modal": "^3.16.1"
   },
   "devDependencies": {
     "@adobe/apollo-link-mutation-queue": "~1.0.2",
@@ -49,6 +50,7 @@
     "@magento/peregrine": "~12.5.1",
     "@magento/pwa-theme-venia": "~1.3.0",
     "@magento/upward-security-headers": "~1.0.10",
+    "@magento/venia-sample-backends": "~0.0.1",
     "@magento/venia-ui": "~9.6.0",
     "@pmmmwh/react-refresh-webpack-plugin": "0.4.1",
     "@storybook/react": "~6.3.7",
@@ -122,8 +124,7 @@
     "workbox-precaching": "~6.2.4",
     "workbox-routing": "~6.2.4",
     "workbox-strategies": "~6.2.4",
-    "workbox-webpack-plugin": "~6.2.4",
-    "@magento/venia-sample-backends": "~0.0.1"
+    "workbox-webpack-plugin": "~6.2.4"
   },
   "optionalDependencies": {
     "sharp": "~0.29.3"

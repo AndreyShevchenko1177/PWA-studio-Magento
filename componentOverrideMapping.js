@@ -4,6 +4,7 @@ module.exports = componentOverrideMapping = {
     ['@magento/peregrine/lib/talons/RootComponents/Product/useProduct.js']: 'src/lib/talons/RootComponents/Product/useProduct.js',
     [`${veniaUiPackagePath}/lib/components/Image/resourceImage.js`]: 'src/components/Image/resourceImage.js',
     [`${veniaUiPackagePath}/lib/components/ProductImageCarousel/carousel.js`]: 'src/components/ProductImageCarousel/carousel.js',
+    [`${veniaUiPackagePath}/lib/components/ProductImageCarousel/thumbnail.js`]: 'src/components/ProductImageCarousel/thumbnail.js',
     // add comma-separated files
 };
 

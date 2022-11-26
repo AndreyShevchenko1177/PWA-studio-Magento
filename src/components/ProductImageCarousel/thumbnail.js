@@ -1,13 +1,16 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { bool, func, number, shape, string } from 'prop-types';
 
 import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
 import { useWindowSize } from '@magento/peregrine';
 import { useThumbnail } from '@magento/peregrine/lib/talons/ProductImageCarousel/useThumbnail';
 
-import { useStyle } from '../../classify';
-import defaultClasses from './thumbnail.module.css';
-import Image from '../Image';
+import { useStyle } from '@magento/venia-ui/lib/classify';
+import defaultClasses from '@magento/venia-ui/lib/components/ProductImageCarousel/thumbnail.module.css';
+import Image from '@magento/venia-ui/lib/components/Image';
+
+import Canvas from './Canvas'
+
 
 const DEFAULT_THUMBNAIL_HEIGHT = 170;
 const DEFAULT_THUMBNAIL_WIDTH = 135;
@@ -24,11 +27,13 @@ const DEFAULT_THUMBNAIL_WIDTH = 135;
  * @returns {React.Element} React thumbnail component that displays product thumbnail
  */
 const Thumbnail = props => {
+
+
     const classes = useStyle(defaultClasses, props.classes);
 
     const {
         isActive,
-        item: { file, label },
+        item: { file, label, type },
         onClickHandler,
         itemIndex
     } = props;
@@ -42,6 +47,26 @@ const Thumbnail = props => {
 
     const windowSize = useWindowSize();
     const isDesktop = windowSize.innerWidth >= 1024;
+
+
+
+
+    const canvas = useMemo(() => {
+
+        if (!isDesktop) {
+            return null;
+        }
+
+        return <Canvas
+            src={file}
+            defaultWidth={DEFAULT_THUMBNAIL_WIDTH}
+        />
+    }, [file, isDesktop])
+    
+
+
+
+
 
     const thumbnailImage = useMemo(() => {
         if (!isDesktop) {
@@ -72,7 +97,9 @@ const Thumbnail = props => {
             role="button"
             aria-hidden="true"
         >
-            {thumbnailImage}
+            {type == 'video' ? 
+                canvas
+                : thumbnailImage}
         </span>
     );
 };

@@ -73,7 +73,7 @@ const ProductImageCarousel = props => {
 
     let image;
 
-    console.log('currentImage', {currentImage});
+    // console.log('currentImage', {currentImage});
 
     if (currentImage.type == 'video'){
         console.log("It's video");

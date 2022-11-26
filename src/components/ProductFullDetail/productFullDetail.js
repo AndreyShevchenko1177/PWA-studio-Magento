@@ -61,7 +61,7 @@ const ProductFullDetail = props => {
 
     // mediaGalleryEntries = [...mediaGalleryEntries, ...mediaGalleryEntries];
 
-    console.log({mediaGalleryEntries});
+    // console.log({mediaGalleryEntries});
 
     const { formatMessage } = useIntl();
 
