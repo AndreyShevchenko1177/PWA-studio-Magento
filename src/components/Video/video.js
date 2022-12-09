@@ -17,6 +17,7 @@ const Video = (props) => {
         width,
         widths,
         ratio,
+        modalActive,
         ...rest
     } = props;
 
@@ -35,30 +36,28 @@ const Video = (props) => {
     } = talonProps;
 
 
-    console.log({talonResourceWidth, talonResourceHeight, resource});
-
+    // console.log({talonResourceWidth, talonResourceHeight, resource});
 
 
     return (
-        // <div style={{border: '2px solid red'}}>VIDEO</div>
-        // <iframe width={talonResourceWidth-100} height={400} src={resource} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        // <img
-        //     // loading="lazy"
-        //     // className={className}
-        //     height={height}
-        //     src={resource}
-        //     width={width}
-        //     alt='kartinka'
-        // />
 
-
-        <video 
-            controls = "controls"
-            width = {talonResourceWidth}
-            style = {{'max-width': `${talonResourceWidth-150}px`}}
+        <div
+            style = {{
+                    'width': `${talonResourceWidth-100}px`,
+                    'height': `${(talonResourceWidth-100)/ratio}px`,
+                    // 'height': `calc(100vh - 450px)`,
+                    // 'border': '2px solid red'
+                }}
         >
-            <source src={resource}/>
-        </video>
+            <video
+                controls="controls"
+                // width = {`${talonResourceWidth}`}
+                // style = {{'max-width': modalActive && false? `${talonResourceWidth+300}px` : `${talonResourceWidth-150}px`}}
+                style={{ 'width': '100%', 'height': '100%' }}
+            >
+                <source src={resource} />
+            </video>
+        </div>
     )
 }
 

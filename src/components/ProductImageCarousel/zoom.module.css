@@ -1,0 +1,17 @@
+.zoomWrapper {
+    border: 20px solid red;
+    overflow: hidden;
+    opacity: 0;
+    background-color: aqua;
+    /* width: 650px; */
+    /* position: absolute; */
+}
+
+.zoomWrapper:hover img {
+    opacity: 0;
+}
+
+.zoomWrapper:hover {
+    border: 5px solid green;
+    opacity: 100%;
+}

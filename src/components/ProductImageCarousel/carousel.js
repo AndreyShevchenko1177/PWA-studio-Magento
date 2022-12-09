@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
 import { useIntl } from 'react-intl';
 import {
@@ -17,6 +17,10 @@ import defaultClasses from '@magento/venia-ui/lib/components/ProductImageCarouse
 import Thumbnail from '@magento/venia-ui/lib/components/ProductImageCarousel/thumbnail';
 
 import Video from '../Video'
+import Modal from '../Modal';
+import modalChildrenClasses from './modalChildren.module.css'
+import hoverClasses from './hover.module.css'
+import zoomClasses from './zoom.module.css'
 
 const IMAGE_WIDTH = 640;
 
@@ -54,6 +58,10 @@ const ProductImageCarousel = props => {
         sortedImages
     } = talonProps;
 
+    const [modalActive, setModalActive] = useState(false);
+    const [ratio, setRatio] = useState(1);
+    
+
     // create thumbnail image component for every images in sorted order
     const thumbnails = useMemo(
         () =>
@@ -64,23 +72,48 @@ const ProductImageCarousel = props => {
                     itemIndex={index}
                     isActive={activeItemIndex === index}
                     onClickHandler={handleThumbnailClick}
+                    classes={hoverClasses}
                 />
             )),
         [activeItemIndex, handleThumbnailClick, sortedImages]
     );
 
+    const modalThumbnails = useMemo(
+        () =>
+            sortedImages.map((item, index) => (
+                <Thumbnail
+                    key={item.uid}
+                    item={item}
+                    itemIndex={index}
+                    isActive={activeItemIndex === index}
+                    onClickHandler={handleThumbnailClick}
+                    modalActive={modalActive}
+                    classes={modalChildrenClasses}
+                    setRatio = {setRatio}
+                />
+            )),
+        [activeItemIndex, handleThumbnailClick, sortedImages, modalActive, setRatio]
+    );
+
     const classes = useStyle(defaultClasses, props.classes);
+
+    // console.log({CarouselClasses: classes});
 
     let image;
 
-    // console.log('currentImage', {currentImage});
 
     if (currentImage.type == 'video'){
-        console.log("It's video");
+        console.log("It's video", currentImage.file);
         image = (
             <Video 
                 resource={currentImage.file}
                 width={IMAGE_WIDTH}
+                classes={{
+                    image: classes.currentImage,
+                    root: modalActive ? modalChildrenClasses.mainImg : classes.imageContainer
+                }}
+                modalActive = {modalActive}
+                ratio = {ratio}
             />
         );
     }else 
@@ -90,10 +123,13 @@ const ProductImageCarousel = props => {
                 alt={altText}
                 classes={{
                     image: classes.currentImage,
-                    root: classes.imageContainer
+                    root: modalActive  ? modalChildrenClasses.mainImg : classes.imageContainer,
+                    // root: modalActive  ? modalChildrenClasses.imageContainer : classes.imageContainer
                 }}
                 resource={currentImage.file}
                 width={IMAGE_WIDTH}
+                onClick = {()=>setModalActive(true)}
+                shouldZoom = {true}
             />
         );
     } else {
@@ -120,6 +156,50 @@ const ProductImageCarousel = props => {
     });
 
     const chevronClasses = { root: classes.chevron };
+
+    const ModalCarousel = () => {
+        return <>
+            <div className={modalChildrenClasses.topCarousel}>
+                <AriaButton
+                    className={modalChildrenClasses.previousButton}
+                    onPress={handlePrevious}
+                    aria-label={previousButton}
+                    type="button"
+                >
+                    <Icon
+                        classes={chevronClasses}
+                        src={ChevronLeftIcon}
+                        size={40}
+                    />
+                </AriaButton>
+                {/* <Image
+                    alt={altText}
+                    classes={{
+                        image: classes.currentImage,
+                        root: modalChildrenClasses.mainImg
+                    }}
+                    resource={currentImage.file}
+                    width={IMAGE_WIDTH}
+                    // onClick={() => setModalActive(true)}
+                /> */}
+                {image}
+                <AriaButton
+                    className={modalChildrenClasses.nextButton}
+                    onPress={handleNext}
+                    aria-label={nextButton}
+                    type="button"
+                >
+                    <Icon
+                        classes={chevronClasses}
+                        src={ChevronRightIcon}
+                        size={40}
+                    />
+                </AriaButton>
+            </div>
+        </>
+    }
+
+
     return (
         <div className={classes.root}>
             <div className={classes.carouselContainer}>
@@ -135,6 +215,7 @@ const ProductImageCarousel = props => {
                         size={40}
                     />
                 </AriaButton>
+               
                 {image}
                 <AriaButton
                     className={classes.nextButton}
@@ -150,6 +231,13 @@ const ProductImageCarousel = props => {
                 </AriaButton>
             </div>
             <div className={classes.thumbnailList}>{thumbnails}</div>
+            <Modal 
+                active = {modalActive} 
+                setActive = {setModalActive}
+            >
+                <ModalCarousel/>
+                <div className={modalChildrenClasses.modalThumbnails}>{modalThumbnails}</div>
+            </Modal>
         </div>
     );
 };

@@ -22,7 +22,7 @@ import {
  */
 const ResourceImage = props => {
 
-    // console.log('+++IMAGE+++');
+    // console.log('+++resourse imagr+++');
 
     const {
         alt,

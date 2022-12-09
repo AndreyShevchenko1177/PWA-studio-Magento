@@ -1,10 +1,12 @@
-import React, { useEffect, useMemo, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
 const Canvas = (props)=>{
 
     const {
         src,
         defaultWidth,
+        setRatio,
+        classes
     } = props
 
     const canvasRef = useRef(null);
@@ -16,6 +18,9 @@ const Canvas = (props)=>{
         const loadedmetadata = function () {
             canvasRef.current.width = defaultWidth;
             canvasRef.current.height = Math.floor((defaultWidth) / _video.videoWidth * _video.videoHeight);
+            if (setRatio) {
+                setRatio(_video.videoWidth / _video.videoHeight)
+            }
             _video.currentTime = Math.floor(_video.duration / 2);
         };
 
@@ -39,11 +44,14 @@ const Canvas = (props)=>{
     })
 
 
+    // console.log(classes);
+    // console.log('canvas-HOVER:+++', classes.hover);
     return (
         <canvas
             ref = {canvasRef}
             width = {50}
             height = {50}
+            className={`${classes.hover}`}
         ></canvas>
     )
 };

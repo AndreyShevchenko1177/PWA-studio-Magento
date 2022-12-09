@@ -28,15 +28,23 @@ const DEFAULT_THUMBNAIL_WIDTH = 135;
  */
 const Thumbnail = props => {
 
+    // console.log({ThumbDEF_classes: JSON.parse(JSON.stringify(defaultClasses))});
+    // console.log({ThumbPROP_classes_1: JSON.parse(JSON.stringify(props.classes))});
 
     const classes = useStyle(defaultClasses, props.classes);
+
+    // console.log({ThumbRES_classes: JSON.parse(JSON.stringify(classes))});
 
     const {
         isActive,
         item: { file, label, type },
         onClickHandler,
-        itemIndex
+        itemIndex,
+        modalActive,
+        setRatio
     } = props;
+
+    
 
     const talonProps = useThumbnail({
         onClickHandler,
@@ -53,15 +61,19 @@ const Thumbnail = props => {
 
     const canvas = useMemo(() => {
 
-        if (!isDesktop) {
+        if (!isDesktop && !modalActive) {
             return null;
         }
 
+        // console.log('canvasHOVER:', classes.hover);
+
         return <Canvas
             src={file}
-            defaultWidth={DEFAULT_THUMBNAIL_WIDTH}
+            defaultWidth={modalActive ? 80 : DEFAULT_THUMBNAIL_WIDTH}
+            setRatio = {setRatio}
+            classes ={classes}
         />
-    }, [file, isDesktop])
+    }, [file, isDesktop, modalActive, setRatio, classes])
     
 
 
@@ -69,14 +81,14 @@ const Thumbnail = props => {
 
 
     const thumbnailImage = useMemo(() => {
-        if (!isDesktop) {
+        if (!isDesktop && !modalActive) {
             return null;
         }
 
         return file ? (
             <Image
                 alt={label}
-                classes={{ image: classes.image }}
+                classes={{ image: classes.image + ' ' + classes.hover}}
                 height={DEFAULT_THUMBNAIL_HEIGHT}
                 resource={file}
                 width={DEFAULT_THUMBNAIL_WIDTH}
@@ -88,7 +100,8 @@ const Thumbnail = props => {
                 src={transparentPlaceholder}
             />
         );
-    }, [file, isDesktop, label, classes.image]);
+    }, [file, isDesktop, label, classes.image, modalActive]);
+    // console.log('1',{file, handleClick})
 
     return (
         <span

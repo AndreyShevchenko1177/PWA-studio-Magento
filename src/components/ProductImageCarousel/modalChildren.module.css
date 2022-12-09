@@ -1,0 +1,93 @@
+.mainImg {
+    /* border: 2px solid red; */
+    width: 100%;
+    /* max-width: calc(100vw - 1400px); */
+    max-height: calc(100vh - 230px);
+}
+
+.topCarousel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    height: calc(90% - 30px);
+    overflow: hidden;
+    /* border: 2px solid red; */
+}
+
+.previousButton,
+.nextButton {
+    composes: flex from global;
+    composes: outline-none from global;
+    composes: z-foreground from global;
+
+    /* composes: lg_hidden from global; */
+}
+
+.nextButton {
+    composes: justify-end from global;
+    composes: mr-sm from global;
+    grid-area: 1 / 3 / 2 / 4;
+}
+
+
+
+.nextButton:focus ,
+.previousButton:focus   {
+    box-shadow: 0 0 4px 2px rgb(var(--venia-global-color-teal));
+    border-radius: 0.5rem;
+}
+
+.modalThumbnails {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.image {
+    /* border: 2px solid red; */
+    max-width: 50px;
+    min-height: 50px;
+}
+
+.rootSelected {
+    /* border: 2px solid red; */
+    box-shadow: 0 0 4px 2px rgb(var(--venia-global-color-teal));
+    margin: 5px;
+}
+
+.root {
+    margin: 5px;
+}
+
+.currentImage {
+    composes: block from global;
+    composes: h-full from global;
+    composes: object-center from global;
+    composes: object-contain from global;
+    composes: w-full from global;
+
+    composes: lg_object-top from global;
+}
+
+.imageContainer {
+    grid-area: 1 / 1 / 2 / 4;
+}
+
+.currentImage_placeholder {
+    composes: currentImage;
+
+    composes: bg-subtle from global;
+}
+
+.hover {
+    transition: 0.2s all;
+    /* border: 2px solid red; */
+}
+
+.hover:hover {
+    /* border: 2px solid green; */
+    transform: scale(1.2);
+    transition: 0.5s all;
+}
